@@ -1,4 +1,3 @@
-# include file sources.mk mà bạn vừa làm
 include sources.mk
 
 # Tên file thực thi đầu ra
@@ -29,7 +28,7 @@ ifeq ($(PLATFORM),MSP432)
     CPPFLAGS = -DMSP432 $(INCLUDES)
 
 else
-    # Trình biên dịch cho máy tính (HOST) mặc định
+    # Trình biên dịch cho máy tính (HOST)
     CC = gcc
     LD = ld
     SIZE = size
@@ -41,7 +40,7 @@ else
     CPPFLAGS = -DHOST $(INCLUDES)
 endif
 
-# --- CÁC QUY TẮC BIÊN DỊCH (TARGETS) ---
+# CÁC QUY TẮC BIÊN DỊCH (TARGETS) 
 
 # Tạo file object (.o) từ file C
 %.o : %.c
@@ -59,11 +58,11 @@ endif
 %.d : %.c
 	$(CC) -M $< $(CPPFLAGS) -o $@
 
-# Biên dịch tất cả thành file .o nhưng không link
+# Biên dịch tất cả thành file .o n
 .PHONY: compile-all
 compile-all: $(SOURCES:.c=.o)
 
-# Target build cuối cùng: Link các file .o thành c1m2.out và in ra dung lượng (size)
+# Link các file .o thành c1m2.out và in ra dung lượng (size)
 .PHONY: build
 build: $(TARGET).out
 
@@ -71,7 +70,7 @@ $(TARGET).out: $(SOURCES:.c=.o)
 	$(CC) $(SOURCES:.c=.o) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@
 	$(SIZE) $@
 
-# Dọn dẹp rác
+# clean
 .PHONY: clean
 clean:
 	rm -f *.o *.i *.asm *.d *.map *.out
